@@ -1,0 +1,263 @@
+/* layout helpers */
+.header-row{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* timer badge */
+.timer{
+  font-variant-numeric: tabular-nums;
+  min-width: 64px;
+  padding: .4rem .75rem;
+  text-align: center;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 6px 18px rgba(2,6,23,.06) inset;
+  animation: pop-in .35s ease;
+}
+.timer.danger{
+  background: #ffeaea;
+  color: #7a1212;
+  border-color: rgba(122,18,18,.15);
+  animation: tick 1s steps(2, end) infinite;
+}
+
+/* input + send row */
+.input-row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  width: min(780px, 100%);
+  margin-top: 8px;
+}
+
+/* writing box */
+.text-input{
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 8px 24px rgba(2,6,23,.06);
+  transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease;
+}
+.text-input::placeholder{ color: #94a3b8 }
+.text-input:focus{
+  outline: none;
+  border-color: rgba(37,99,235,.35);
+  box-shadow: 0 8px 24px rgba(2,6,23,.06), 0 0 0 4px rgba(37,99,235,.15);
+  transform: translateY(-1px);
+}
+.text-input:disabled{
+  background: #f5f7fb;
+  color: #94a3b8;
+}
+
+/* send button (matches your start-button style, lighter) */
+.send-button{
+  padding: .85rem 1.2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  border: 1px solid rgba(37,99,235,.2);
+  background: linear-gradient(180deg, #5c94ff, #2563eb);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(37,99,235,.2);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease, opacity .2s ease;
+  min-width: 110px;
+}
+.send-button:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(37,99,235,.25); }
+.send-button:active{ transform: translateY(0); box-shadow: 0 10px 22px rgba(37,99,235,.2); }
+.send-button:focus-visible{ outline: none; box-shadow: 0 0 0 4px rgba(37,99,235,.18); }
+.send-button:disabled{
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 8px 20px rgba(2,6,23,.06);
+}
+
+/* small hint under the input */
+.hint{
+  margin: .25rem 0 0;
+  font-size: .95rem;
+  color: #64748b;
+}
+
+/* animations */
+@keyframes pop-in{
+  from{ opacity:0; transform: scale(.9) translateY(4px); }
+  to{ opacity:1; transform: scale(1) translateY(0); }
+}
+@keyframes tick{
+  0%{ filter: none; }
+  50%{ filter: brightness(1.05) saturate(1.1); }
+  100%{ filter: none; }
+}
+
+/* responsive */
+@media (max-width: 640px){
+  .input-row{
+    grid-template-columns: 1fr;
+  }
+  .send-button{ width: 100%; }
+}
+
+/* ===== Drawing Board ===== */
+
+.board {
+  width: min(900px, 100%);
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background: #ffffffcc;
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(15,23,42,.06);
+  box-shadow: 0 8px 24px rgba(2,6,23,.06);
+  animation: fade-up 500ms cubic-bezier(.2,.8,.2,1);
+}
+
+.board-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tool-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f7f9ff;
+  border: 1px solid rgba(15,23,42,.06);
+  padding: .5rem .75rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(2,6,23,.04) inset;
+}
+
+.tool-label {
+  font-size: .9rem;
+  color: #475569;
+}
+
+.color-input {
+  width: 36px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.tool-group input[type="range"]{
+  accent-color: #2563eb;
+}
+
+.range-badge{
+  font-size: .9rem;
+  color: #0f172a;
+  background: #eef3ff;
+  border: 1px solid rgba(15,23,42,.06);
+  padding: .1rem .5rem;
+  border-radius: 999px;
+}
+
+.chip{
+  border: 1px solid rgba(15,23,42,.12);
+  background: linear-gradient(180deg, #ffffff, #f3f6ff);
+  color: #0f172a;
+  padding: .55rem .8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 6px 18px rgba(2,6,23,.06);
+}
+.chip:hover{ transform: translateY(-1px); box-shadow: 0 10px 22px rgba(2,6,23,.08); }
+.chip:active{ transform: translateY(0); box-shadow: 0 6px 18px rgba(2,6,23,.06); }
+.chip.active{
+  border-color: rgba(37,99,235,.35);
+  box-shadow: 0 8px 22px rgba(37,99,235,.16);
+  background: linear-gradient(180deg, #eef4ff, #e3ecff);
+}
+
+/* Canvas wrapper creates rounded mask & border */
+.canvas-wrap{
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,.08);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(2,6,23,.06);
+}
+.canvas-wrap canvas{
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none; /* better drawing on mobile */
+}
+
+/* Reuse existing animations if you have them; otherwise: */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px) scale(.995); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 640px){
+  .board-toolbar{
+    gap: 10px;
+  }
+  .tool-group{
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* === Task Box === */
+.task-box {
+  width: min(700px, 100%);
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  margin-bottom: 1rem;
+  animation: fade-up 0.6s ease;
+}
+
+.task-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.task-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0.3rem;
+  line-height: 1.5;
+}
+
+/* Animation reuse (if not already defined) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
